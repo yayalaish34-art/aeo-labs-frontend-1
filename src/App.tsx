@@ -74,9 +74,7 @@ function App() {
   
   // Lazy initialization for language detection
   const [lang, setLang] = useState<Language>(() => {
-    if (typeof navigator !== 'undefined' && navigator.language) {
-      return navigator.language.startsWith('he') ? 'he' : 'en';
-    }
+    
     return 'he';
   });
 
