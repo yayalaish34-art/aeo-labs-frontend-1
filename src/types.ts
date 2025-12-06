@@ -24,6 +24,8 @@ export const AnalysisStatus = {
   ERROR: 'ERROR',
   PRICING: 'PRICING',
   CHECKOUT: 'CHECKOUT',
+  PAYMENT_SUCCESS: 'payment_success',
+  PAYMENT_FAILURE: 'payment_failure',
 } as const;
 
 export type AnalysisStatus =

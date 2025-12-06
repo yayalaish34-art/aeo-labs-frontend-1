@@ -11,7 +11,10 @@ import FAQ from './components/FAQ';
 import { analyzeWebsite } from './services/geminiService';
 import { AnalysisStatus } from './types';
 import type { AnalysisReport, Language } from './types';
-
+// שורה 8: הוסף יבוא לרכיב הצלחה
+import SuccessMessage from './components/SuccessView';
+// שורה 9: הוסף יבוא לרכיב כישלון
+import FailureMessage from './components/FailureView';
 
 const TRANSLATIONS = {
   he: {
@@ -79,7 +82,19 @@ function App() {
   });
 
   const t = TRANSLATIONS[lang];
-
+useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paymentStatus = urlParams.get('payment');
+    
+    if (paymentStatus) {
+      if (paymentStatus === 'success') {
+        setStatus(AnalysisStatus.PAYMENT_SUCCESS);
+      } else if (paymentStatus === 'failure') {
+        setStatus(AnalysisStatus.PAYMENT_FAILURE);
+      } 
+      // window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, []); // ריצה חד-פעמית בטעינת הקומפוננטה
   useEffect(() => {
     // Update HTML direction and language attribute
     document.documentElement.lang = lang;
@@ -144,7 +159,9 @@ function App() {
   const showCheckout = (planName: string) => {
     setSelectedPlan(planName);
     setStatus(AnalysisStatus.CHECKOUT);
+    setTimeout(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 50);
   };
 
   const backToPricing = () => {
@@ -195,6 +212,11 @@ function App() {
 
   const renderContent = () => {
       switch (status) {
+        case AnalysisStatus.PAYMENT_SUCCESS:
+              return <SuccessMessage lang={lang} onHome={resetAnalysis} />; 
+
+          case AnalysisStatus.PAYMENT_FAILURE:
+              return <FailureMessage lang={lang} onRetry={backToPricing} />;
           case AnalysisStatus.CHECKOUT:
               return (
                 <CheckoutView 
