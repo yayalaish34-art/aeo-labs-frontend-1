@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AEO Labs - ניתוח אתרים לעידן ה-AI</title>
+
+    <!-- Tailwind דרך CDN (סבבה לשלב ראשון) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- פונט Heebo כמו שהיה לך -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: 'Heebo', sans-serif;
+        background-color: #0f172a; /* Slate 900 */
+        color: #f8fafc; /* Slate 50 */
+      }
+
+      .typing-cursor::after {
+        content: '|';
+        animation: blink 1s step-start infinite;
+      }
+
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #1e293b;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #3b82f6;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <!-- ⚠️ זה הדבר שהיה חסר: טעינת ה-React שלך -->
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
